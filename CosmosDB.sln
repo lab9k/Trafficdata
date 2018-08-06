@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database_Access_Object", "Database_Access_Object\Database_Access_Object.csproj", "{418AD864-5036-4545-8C62-2A02B66B8C30}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TraveltimesDocumentCreator", "TraveltimesDocumentCreator\TraveltimesDocumentCreator.csproj", "{92A3F6DD-AE9C-4674-8E8B-36347DA64054}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentModels", "DocumentModels\DocumentModels.csproj", "{10599FBC-69EF-41E3-B06F-B6DEDC1B699B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteApi", "RemoteApi\RemoteApi.csproj", "{F2C78583-A55E-4DDD-96BE-5DAAB405EC58}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficDataImportGUI", "TrafficDataImportGUI\TrafficDataImportGUI.csproj", "{E3111DCC-81B7-4EAE-905F-0D86D15C02E7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlobToCosmos", "BlobToCosmos\BlobToCosmos.csproj", "{187C34BC-1568-4059-B27A-498ED0C75CA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{418AD864-5036-4545-8C62-2A02B66B8C30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{418AD864-5036-4545-8C62-2A02B66B8C30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{418AD864-5036-4545-8C62-2A02B66B8C30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{418AD864-5036-4545-8C62-2A02B66B8C30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92A3F6DD-AE9C-4674-8E8B-36347DA64054}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92A3F6DD-AE9C-4674-8E8B-36347DA64054}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92A3F6DD-AE9C-4674-8E8B-36347DA64054}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92A3F6DD-AE9C-4674-8E8B-36347DA64054}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10599FBC-69EF-41E3-B06F-B6DEDC1B699B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10599FBC-69EF-41E3-B06F-B6DEDC1B699B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10599FBC-69EF-41E3-B06F-B6DEDC1B699B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10599FBC-69EF-41E3-B06F-B6DEDC1B699B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2C78583-A55E-4DDD-96BE-5DAAB405EC58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2C78583-A55E-4DDD-96BE-5DAAB405EC58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2C78583-A55E-4DDD-96BE-5DAAB405EC58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2C78583-A55E-4DDD-96BE-5DAAB405EC58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3111DCC-81B7-4EAE-905F-0D86D15C02E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3111DCC-81B7-4EAE-905F-0D86D15C02E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3111DCC-81B7-4EAE-905F-0D86D15C02E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3111DCC-81B7-4EAE-905F-0D86D15C02E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{187C34BC-1568-4059-B27A-498ED0C75CA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{187C34BC-1568-4059-B27A-498ED0C75CA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{187C34BC-1568-4059-B27A-498ED0C75CA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{187C34BC-1568-4059-B27A-498ED0C75CA9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CF6A6CD0-176B-4C11-9F30-597D00F519B4}
+	EndGlobalSection
+EndGlobal

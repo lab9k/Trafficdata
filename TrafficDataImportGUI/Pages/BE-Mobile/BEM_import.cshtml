@@ -1,0 +1,60 @@
+﻿@page
+@model TrafficDataImportGUI.Pages.BE_Mobile.BEM_importModel
+@{
+    ViewData["Title"] = "BEM_import";
+}
+
+
+<body>
+    <div class="container">
+        <h1>Start BE-Mobile import job</h1>
+        
+        <div class="card">
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="blobName">Storage Account Name:</label>
+                        <input type="text" class="form-control" name="blobName" value="mbdvoiotst01" />
+                    </div>
+                    <div class="form-group">
+                        <label for="blobKey">Storage Account Key:</label>
+                        <input type="text" class="form-control" name="blobKey" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="blobContainer">Blob Container Name: </label>
+                        <input type="text" class="form-control" name="blobContainer" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="month">Data Month (seperated by ';'): </label>
+                        <input type="text" class="form-control" name="month" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="traject">Route ID (seperated by ';'): </label>
+                        <input type="text" class="form-control" name="traject" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="cosmosUrl">Cosmos URL: </label>
+                        <input type="text" class="form-control" name="cosmosURL" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="cosmosKey">Cosmos Key: </label>
+                        <input type="text" class="form-control" name="cosmosKey" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="OutputDB">Output Database:</label>
+                        <input type="text" class="form-control" name="OutputDB" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="OutputColl">Output Collection:</label>
+                        <input type="text" class="form-control" name="OutputColl" value="" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+               
+
+
+            </div>
+        </div>
+    </div>
+</body>
+

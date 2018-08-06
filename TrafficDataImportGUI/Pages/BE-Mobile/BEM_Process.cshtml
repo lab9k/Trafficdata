@@ -1,0 +1,62 @@
+﻿@page
+@model BeMobileProcessModel
+@{
+    ViewData["Title"] = "BE-Mobile";
+}
+
+<body>
+    <div class="container">
+        <h1>Start BE-Mobile transformation job</h1>
+                <div class="card">
+                    <div class="card-body">
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="blobName">Input Database URL:</label>
+                                <input type="text" class="form-control" name="InUrl" value="" />
+                            </div>
+                            <div class="form-group">
+                                <label for="blobKey">Input Database Key:</label>
+                                <input type="text" class="form-control" name="InKey" value="" />
+                            </div>
+                            <div class="form-group">
+                                <label for="blobContainer">Input Database Name: </label>
+                                <input type="text" class="form-control" name="InDb" value="" />
+                            </div>
+                            <div class="form-group">
+                                <label for="month">Input Collection Name: </label>
+                                <input type="text" class="form-control" name="InColl" value="" />
+                            </div>
+                            <div class="form-group">
+                                <label for="traject">Input Static Data Collection (must be in same database as other inputs): </label>
+                                <input type="text" class="form-control" name="InStat" value="" />
+                            </div>
+                            <div class="form-group">
+                                <label for="cosmosUrl">Output Database URL: </label>
+                                <input type="text" class="form-control" name="OutUrl" value="" />
+                            </div>
+                            <div class="form-group">
+                                <label for="cosmosKey">Output Database Key: </label>
+                                <input type="text" class="form-control" name="OutKey" value="" />
+                            </div>
+                            <div class="form-group">
+                                <label for="OutputDB">Output Database Name:</label>
+                                <input type="text" class="form-control" name="OutDb" value="" />
+                            </div>
+                            <div class="form-group">
+                                <label for="OutputColl">Output Collection Name:</label>
+                                <input type="text" class="form-control" name="OutColl" value="" />
+                            </div>
+                            <div class="form-group">
+                                <label for="OutputColl">List of trajects seperated by ';' (Leave empty for all trajects):</label>
+                                <input type="text" class="form-control" name="trajects" value="" />
+                            </div>
+                            <div class="form-group">
+                                <label for="OutputColl">Threads used:</label>
+                                <input type="text" class="form-control" name="threads" value="" />
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+    </div>
+</body>

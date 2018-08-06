@@ -1,0 +1,57 @@
+﻿@page
+@model TrafficDataImportGUI.Pages.BE_Mobile.BEM_Process_staticModel
+@{
+    ViewData["Title"] = "BEM_Process_static";
+}
+
+<div class="container">
+    <h1>Start BE-Mobile static import job</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                <div class="form-group">
+                    <label for="blobName">Google API key: </label>
+                    <input type="text" class="form-control" name="apiKey" value="" />
+                </div>
+                <div class="form-group">
+                    <label for="cosmosUrl">Input Cosmos URL: </label>
+                    <input type="text" class="form-control" name="InputURL" value="" />
+                </div>
+                <div class="form-group">
+                    <label for="cosmosKey">Input Cosmos Key: </label>
+                    <input type="text" class="form-control" name="InputKey" value="" />
+                </div>
+                <div class="form-group">
+                    <label for="OutputDB">Input Database:</label>
+                    <input type="text" class="form-control" name="InputDB" value="" />
+                </div>
+                <div class="form-group">
+                    <label for="OutputColl">Input Collection:</label>
+                    <input type="text" class="form-control" name="InputColl" value="" />
+                </div>
+                <div class="form-group">
+                    <label for="cosmosUrl">Output Cosmos URL: </label>
+                    <input type="text" class="form-control" name="OutputURL" value="" />
+                </div>
+                <div class="form-group">
+                    <label for="cosmosKey">Output Cosmos Key: </label>
+                    <input type="text" class="form-control" name="OutputKey" value="" />
+                </div>
+                <div class="form-group">
+                    <label for="OutputDB">Output Database:</label>
+                    <input type="text" class="form-control" name="OutputDB" value="" />
+                </div>
+                <div class="form-group">
+                    <label for="OutputColl">Output Collection:</label>
+                    <input type="text" class="form-control" name="OutputColl" value="" />
+                </div>
+                <button type="submit" class="btn btn-primary">Submit (Runs synchronized, page might not respons for a while)</button>
+            </form>
+            <div id="loader" class="loader"></div>
+        </div>
+    </div>
+    <script>
+    </script>
+</div>
+

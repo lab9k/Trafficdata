@@ -1,0 +1,24 @@
+﻿@page
+@model TrafficDataImportGUI.Pages.BE_Mobile.StatusModel
+@{
+    ViewData["Title"] = "Status";
+}
+
+
+<div class="container">
+    <h2> Job Queue status</h2>
+    <table class="table table-bordered">
+        <tr><th>Queue Name</th><th>Tasks Queued</th><th>Tasks Finished</th><th>Tasks Failed</th></tr>
+        <tr><td>Import Jobs</td><td>@ViewData["import_job_queued"]</td><td>@ViewData["import_job_finished"]</td><td>@ViewData["import_job_failed"]</td></tr>
+        <tr><td>Import Documents</td><td>@ViewData["import_doc_queued"]</td><td>@ViewData["import_doc_finished"]</td><td>@ViewData["import_doc_failed"]</td></tr>
+        <tr><td>Transformation Jobs</td><td>@ViewData["transform_job_queued"]</td><td>@ViewData["transform_job_finished"]</td><td>@ViewData["transform_job_failed"]</td></tr>
+        <tr><td>Transformation Documents</td><td>@ViewData["transform_doc_queued"]</td><td>@ViewData["transform_doc_finished"]</td><td>@ViewData["transform_doc_failed"]</td></tr>
+    </table>
+    
+    
+    
+    
+</div>
+
+
+
