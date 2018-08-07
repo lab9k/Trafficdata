@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: trafficdata
+  labels:
+    component: trafficdata
+spec:
+  replicas: 1
+  strategy:                               # how updating the deployment affect the Replicat Set and Pods
+    type: RollingUpdate                   # Recreate/RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: trafficdata
+  template:
+    metadata:
+      labels:
+        app: trafficdata
+    spec:
+      containers:
+        - name: trafficdata
+          image: lab9k/trafficdata:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5577
