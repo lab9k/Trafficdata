@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: trafficdata
+  labels:
+    app: trafficdata
+spec:
+  ports:
+  - port: 80
+    targetPort: 5577
+  selector:
+    app: trafficdata
+  type: LoadBalancer
