@@ -20,7 +20,7 @@ namespace TraveltimesDocumentCreator
 
             while(Threadpool <= 0 && timeout > 0)
             {
-                Console.WriteLine("No locks left, waiting..");
+               // Console.WriteLine("No locks left, waiting..");
                 timeout -= 500;
                 Thread.Sleep(500);
             }
@@ -31,7 +31,7 @@ namespace TraveltimesDocumentCreator
         public void ReleaseLock()
         {
             Threadpool++;
-            Console.WriteLine($"Lock released, {Threadpool} locks left");
+            //Console.WriteLine($"Lock released, {Threadpool} locks left");
         }
     }
 }

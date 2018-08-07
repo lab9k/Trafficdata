@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -19,10 +20,9 @@ namespace WebDownload.Pages
             string fromDate = Request.Form["from-date"];
             string toDate = Request.Form["to-date"];
             string segment = Request.Form["segmentName"];
+            DateTime from = DateTime.Parse(fromDate);
+            DateTime to = DateTime.Parse(toDate);
 
-            DateTime from = DateTime.Parse(fromDate,)
-
-            Console.WriteLine($"{fromDate} -> {toDate} : {segment}");
         }
     }
 }
