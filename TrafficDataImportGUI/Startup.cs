@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using TrafficDataImportGUI.BeMobile;
 using TrafficDataImportGUI.BeMobile.HostedServices;
 using TrafficDataImportGUI.BeMobile.Import;
+using TraveltimesDocumentCreator;
 using TraveltimesDocumentCreator.DocumentCreator.Transformation.Be_Mobile;
 using TraveltimesDocumentCreator.DocumentCreator.Transformation.Be_Mobile.LocalModels;
 using TraveltimesDocumentCreator.HostedServices;
@@ -35,6 +36,7 @@ namespace TrafficDataImportGUI
             services.AddHostedService<BeMobileTrajectService>();
             services.AddHostedService<SegmentUploadService>();
             services.AddHostedService<BlobCopyService>();
+            services.AddSingleton<IThreadPool, ThreadPool>();
             services.AddMvc();
         }
 

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using TrafficDataImportGUI.BeMobile.Import;
+using TraveltimesDocumentCreator;
 
 namespace TrafficDataImportGUI.BeMobile.HostedServices
 {
@@ -14,14 +15,16 @@ namespace TrafficDataImportGUI.BeMobile.HostedServices
         private readonly ILogger _logger;
         private bool isRunning = false;
         private IBlockingQueue<BeMobileTaskModel, BEMobileSegmentTaskModel> _queue;
+        private IThreadPool _threadPool;
         private readonly CancellationTokenSource _stoppingCts =
                                                    new CancellationTokenSource();
         private Task _currentTask;
 
-        public SegmentUploadService(ILogger<SegmentUploadService> logger, IBlockingQueue<BeMobileTaskModel,BEMobileSegmentTaskModel> queue)
+        public SegmentUploadService(IThreadPool threadPool,ILogger<SegmentUploadService> logger, IBlockingQueue<BeMobileTaskModel,BEMobileSegmentTaskModel> queue)
         {
             _logger = logger;
             _queue = queue;
+            _threadPool = threadPool;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -40,20 +43,32 @@ namespace TrafficDataImportGUI.BeMobile.HostedServices
             _logger.LogInformation("Segment Background Service is working.");
             while (isRunning)
             {
+
                 var timeout = TimeSpan.FromMilliseconds(100);
                 List<Task> runningTasks = new List<Task>();
-                BEMobileSegmentTaskModel t;
-                if (runningTasks.Count == 0)
+                if(_threadPool.GetLock(1000) > 0)
                 {
-                    _logger.LogInformation("Waiting for Segments in queue to process");
-                    runningTasks.Add(_queue.DocumentQueue.Take().Execute(_queue));
+                    BEMobileSegmentTaskModel t;
+                    if (runningTasks.Count == 0)
+                    {
+                        _logger.LogInformation("Waiting for Segments in queue to process");
+                        runningTasks.Add(_queue.DocumentQueue.Take().Execute(_queue));
+                        runningTasks.Last().ContinueWith((r) => _threadPool.ReleaseLock());
+                    }
+                    _logger.LogInformation("Checking for additional segments");
+                    while (_queue.DocumentQueue.TryTake(out t, timeout))
+                    {
+                        if (_threadPool.GetLock(1000) > 0)
+                        {
+                            runningTasks.Add(t.Execute(_queue));
+                            runningTasks.Last().ContinueWith((r) => _threadPool.ReleaseLock());
+                        }
+                    }
+                        
+                    _logger.LogInformation("Waiting Segments to finish processing");
+                    Task.WaitAll(runningTasks.ToArray<Task>());
                 }
-                _logger.LogInformation("Checking for additional segments");
-                while (_queue.DocumentQueue.TryTake(out t, timeout)){
-                    runningTasks.Add(t.Execute(_queue));
-                }
-                _logger.LogInformation("Waiting Segments to finish processing");
-                Task.WaitAll(runningTasks.ToArray<Task>());
+                
             }
         }
 
