@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficDataImportGUI", "Tra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlobToCosmos", "BlobToCosmos\BlobToCosmos.csproj", "{187C34BC-1568-4059-B27A-498ED0C75CA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDownload", "WebDownload\WebDownload.csproj", "{5679C564-B887-4ABF-9235-881B3A33B490}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{187C34BC-1568-4059-B27A-498ED0C75CA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{187C34BC-1568-4059-B27A-498ED0C75CA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{187C34BC-1568-4059-B27A-498ED0C75CA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5679C564-B887-4ABF-9235-881B3A33B490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5679C564-B887-4ABF-9235-881B3A33B490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5679C564-B887-4ABF-9235-881B3A33B490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5679C564-B887-4ABF-9235-881B3A33B490}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

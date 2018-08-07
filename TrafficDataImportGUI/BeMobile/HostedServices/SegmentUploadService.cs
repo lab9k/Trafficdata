@@ -43,9 +43,16 @@ namespace TrafficDataImportGUI.BeMobile.HostedServices
                 var timeout = TimeSpan.FromMilliseconds(100);
                 List<Task> runningTasks = new List<Task>();
                 BEMobileSegmentTaskModel t;
-                while(_queue.DocumentQueue.TryTake(out t, timeout)){
+                if (runningTasks.Count == 0)
+                {
+                    _logger.LogInformation("Waiting for Segments in queue to process");
+                    runningTasks.Add(_queue.DocumentQueue.Take().Execute(_queue));
+                }
+                _logger.LogInformation("Checking for additional segments");
+                while (_queue.DocumentQueue.TryTake(out t, timeout)){
                     runningTasks.Add(t.Execute(_queue));
                 }
+                _logger.LogInformation("Waiting Segments to finish processing");
                 Task.WaitAll(runningTasks.ToArray<Task>());
             }
         }

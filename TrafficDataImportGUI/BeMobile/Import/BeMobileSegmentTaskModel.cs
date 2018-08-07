@@ -1,5 +1,6 @@
 ﻿using Database_Access_Object;
 using DocumentModels.BeMobile;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;

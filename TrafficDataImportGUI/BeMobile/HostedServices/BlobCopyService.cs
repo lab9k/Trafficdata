@@ -41,7 +41,9 @@ namespace TrafficDataImportGUI.BeMobile.HostedServices
             while (isRunning)
             {
                 BeMobileTaskModel task = _queue.JobQueue.Take();
+                _logger.LogInformation("Processing new Blob task from queue");
                 task.Execute(_logger, _queue);
+                _logger.LogInformation("Finished processing Blob task from queue");
             }
         }
 
