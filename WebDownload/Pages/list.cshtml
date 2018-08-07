@@ -1,0 +1,15 @@
+﻿@page
+@model WebDownload.Pages.ListModel
+@{
+    ViewData["Title"] = "list";
+}
+
+<h2>list</h2>
+<ul>
+    @{
+        foreach (string f in Model.Files)
+        {
+            <li>@f</li>
+        }
+    }
+</ul>

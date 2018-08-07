@@ -1,34 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using DocumentModels.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebDownload.Pages
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+namespace WebDownload
 {
-    public class IndexModel : PageModel
+    [Route("api/[controller]")]
+    public class DownloadController : Controller
     {
-        public void OnGet()
-        {
 
-        }
-
-        public async Task<IActionResult> OnPostAsync()
-        {
-            string fromDate = Request.Form["from-date"];
-            string toDate = Request.Form["to-date"];
-            string segment = Request.Form["segmentName"];
-            Task<List<ParserSegment>> task = new Task<List<ParserSegment>>(() => RecordFetcher.GetResults(fromDate, toDate, segment));
-            task.Start();
-            List<ParserSegment> results = await task;
-            string file = IOManager.WriteSegmentsToFile(results, $"{segment}_{fromDate}-{toDate}");
-            return await Get(file);
-        }
-
+        [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
             string filename = id;
@@ -47,6 +32,7 @@ namespace WebDownload.Pages
             memory.Position = 0;
             return File(memory, GetContentType(path), Path.GetFileName(path));
         }
+
         private string GetContentType(string path)
         {
             var types = GetMimeTypes();
@@ -63,7 +49,7 @@ namespace WebDownload.Pages
                 {".doc", "application/vnd.ms-word"},
                 {".docx", "application/vnd.ms-word"},
                 {".xls", "application/vnd.ms-excel"},
-                {".xlsx", "application/vnd.openxmlformats.officedocument.spreadsheetml.sheet"},
+                {".xlsx", "application/vnd.openxmlformats.officedocument.spreadsheetml.sheet"},  
                 {".png", "image/png"},
                 {".jpg", "image/jpeg"},
                 {".jpeg", "image/jpeg"},

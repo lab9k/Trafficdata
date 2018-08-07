@@ -13,7 +13,7 @@ namespace DocumentModels.Generic
         }
 
 
-        public DateTime FullDate { get; }
+        public DateTime FullDate { get; set; }
 
         public DayOfWeek DayOfWeek => FullDate.DayOfWeek;
 
