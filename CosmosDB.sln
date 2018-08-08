@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficDataImportGUI", "Tra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlobToCosmos", "BlobToCosmos\BlobToCosmos.csproj", "{187C34BC-1568-4059-B27A-498ED0C75CA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDownload", "WebDownload\WebDownload.csproj", "{5679C564-B887-4ABF-9235-881B3A33B490}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDownload", "WebDownload\WebDownload.csproj", "{5679C564-B887-4ABF-9235-881B3A33B490}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficConsole", "TrafficConsole\TrafficConsole.csproj", "{F77D7DCD-FCCB-43D4-AB04-B6F386343F79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{5679C564-B887-4ABF-9235-881B3A33B490}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5679C564-B887-4ABF-9235-881B3A33B490}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5679C564-B887-4ABF-9235-881B3A33B490}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F77D7DCD-FCCB-43D4-AB04-B6F386343F79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F77D7DCD-FCCB-43D4-AB04-B6F386343F79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F77D7DCD-FCCB-43D4-AB04-B6F386343F79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F77D7DCD-FCCB-43D4-AB04-B6F386343F79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

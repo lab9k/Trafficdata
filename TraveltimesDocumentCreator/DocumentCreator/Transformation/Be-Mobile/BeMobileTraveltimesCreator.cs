@@ -18,7 +18,7 @@ namespace TraveltimesDocumentCreator
 
         private static int THREADS = 12;
         
-        public static void CreateMergedDocuments(string inputEndpoint, string inputKey, string inputDb, string inputCollStatic,string inputCollDynamic,
+        public static void CreateMergedDocuments(string[] segments, string inputEndpoint, string inputKey, string inputDb, string inputCollStatic,string inputCollDynamic,
             string outputColl = null, string outputDb = null, string outputEndpoint = null, string outputKey = null, int threads = 12)
         {
             THREADS = threads;
@@ -60,7 +60,7 @@ namespace TraveltimesDocumentCreator
             };
             PersistDocuments.Init();
             Console.WriteLine("Starting transformations");
-            TransformAndPersist(dynamicInfoQuerier,staticInfoQuerier,Verification.CheckExisting);
+            TransformAndPersist(dynamicInfoQuerier,staticInfoQuerier,Verification.CheckExisting, segments);
 
         }
 
@@ -121,14 +121,11 @@ namespace TraveltimesDocumentCreator
             return dynamicData;
         }
 
-        public static void TransformAndPersist(QueryManager<TraveltimeSegment> queryManager, QueryManager<TraveltimeStatic> staticInfoQuerier, Verification verifyType, DateTime? startDate = null)
+        public static void TransformAndPersist(QueryManager<TraveltimeSegment> queryManager, QueryManager<TraveltimeStatic> staticInfoQuerier, Verification verifyType, string[] segmentIds,DateTime? startDate = null)
         {
-
-            string[] segmentIds = { "B_OW", "B_WO", "C_NZ", "C_ZN", "D_NZ", "D_ZN", "E_NZ", "E_ZN", "F_NZ", "F_ZN", "G_NZ", "G_ZN", "H_NZ", "H_ZN", "I_OW", "I_WO", "Invalsweg1", "Invalsweg10", "Invalsweg11", "Invalsweg12", "Invalsweg13", "Invalsweg14", "Invalsweg15", "Invalsweg16", "Invalsweg17", "Invalsweg18", "Invalsweg19", "Invalsweg2", "Invalsweg20_stadinwaarts", "Invalsweg3", "Invalsweg4", "Invalsweg5", "Invalsweg6", "Invalsweg7", "Invalsweg8", "Invalsweg9", "J_OW", "J_WO", "K_NZ", "K_ZN", "L_NZ", "L_ZN", "M_NZ", "M_ZN", "N_NZ", "N_ZN", "O_OW", "O_WO", "P_OW", "P_WO", "R40a_OW", "R40a_WO", "R40wijzerzin", "Uitvalsweg20_staduitwaarts" }; //Todo: add to config file
-
-
-            foreach (string segment in segmentIds)
+           foreach (string segment in segmentIds)
             {
+                Console.WriteLine("Processing documents for segment: " + segment);
                 TransformationTask(queryManager, staticInfoQuerier, verifyType, segment, startDate);
             }
 
@@ -137,7 +134,7 @@ namespace TraveltimesDocumentCreator
 
         private static void TransformationTask(QueryManager<TraveltimeSegment> queryManager, QueryManager<TraveltimeStatic> staticInfoQuerier, Verification verifyType,string segment, DateTime? startDate = null)
         {
-            //Console.WriteLine("Fetching documents for segment, this will take a while...");
+            Console.WriteLine($"Fetching documents for segment {segment}, this will take a while...");
             List<TraveltimeSegment> input = queryManager.GetAllResults($"select * from c where c.TrajectID = '{segment}'");
             Console.WriteLine($"Processing segment: {segment}, fetched {input.Count} documents");
 
@@ -146,7 +143,7 @@ namespace TraveltimesDocumentCreator
             //Console.WriteLine("Processing transformations...");
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            int[] res = ProcessMergesAsync(input, verifyType, staticInfoQuerier).Result;
+            int[] res = ProcessMerges(input, verifyType, staticInfoQuerier);
             stopwatch.Stop();
 
             Console.WriteLine($"Processing finished for segment {segment} (thread: {Thread.CurrentThread.ManagedThreadId}) in {stopwatch.Elapsed}: {res[0]} succeeded, {res[1]} failed, {res[2]} skipped");
@@ -193,12 +190,10 @@ namespace TraveltimesDocumentCreator
             {
                 int itemCount = currentIndex + itemsPerThread < input.Count ? itemsPerThread : input.Count - currentIndex;
                 List<TraveltimeSegment> slicedInput = input.GetRange(currentIndex, itemsPerThread);
-                int[] resultCount= { };                
-                tasks.Add(Task.Run(() => ProcessMerges(slicedInput, verifyType, staticInfoQuerier,ref resultCount)));
-                resultCounts.Add(resultCount);
+                int[] results = await ProcessMergesAsync(input, verifyType, staticInfoQuerier);
+                resultCounts.Add(results);
                 currentIndex += itemCount;
             }
-            await Task.WhenAll(tasks);
             //while(tasks.Count > 0)
             //{
             //    await Task.WhenAny(tasks);
@@ -226,10 +221,9 @@ namespace TraveltimesDocumentCreator
 
         }
 
-        public static void ProcessMerges(List<TraveltimeSegment> input, Verification verifyType, QueryManager<TraveltimeStatic> staticInfoQuerier, ref int[] resultCount)
+        public static int[] ProcessMerges(List<TraveltimeSegment> input, Verification verifyType, QueryManager<TraveltimeStatic> staticInfoQuerier)
         {
-            Console.WriteLine("Started processing in thread: " + Thread.CurrentThread.ManagedThreadId);
-            resultCount = new int[]{ 0, 0, 0 }; //Success, Failed, Skipped
+            int[] resultCount = { 0, 0, 0 }; //Success, Failed, Skipped
 
             foreach (TraveltimeSegment segment in input)
             {
@@ -261,7 +255,7 @@ namespace TraveltimesDocumentCreator
                     //Console.WriteLine($"Merged document {result.Id} persisted in the database");
                 }
             }
-            Console.WriteLine($"Processing in thread {Thread.CurrentThread.ManagedThreadId} finished.");
+            return resultCount;
         }
         
 
