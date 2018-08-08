@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using TrafficConsole.Transform;
 using TraveltimesDocumentCreator;
 
 namespace TrafficConsole
@@ -22,7 +23,7 @@ namespace TrafficConsole
                 {
                     if (t.Type == "Transform" && t.Source == "Be-Mobile")
                     {
-                        BeMobileTraveltimesCreator.CreateMergedDocuments(t.Segments.ToArray(),t.Input.URL, t.Input.Key, t.Input.Database, t.Input.StaticCollection, t.Input.Collection, t.Output.Collection, t.Output.Database, t.Output.URL, t.Output.Key);
+                        BeMobileTransform.Tranform(t).Wait();
                     }
                 }
 

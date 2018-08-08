@@ -1,0 +1,218 @@
+﻿[
+  {
+    "TrajectID": "B_OW",
+    "LocationName": "Sint-Lievenslaan"
+  },
+  {
+    "TrajectID": "B_WO",
+    "LocationName": "Charles de Kerchovelaan"
+  },
+  {
+    "TrajectID": "C_NZ",
+    "LocationName": "Charles de Kerchovelaan"
+  },
+  {
+    "TrajectID": "C_ZN",
+    "LocationName": "Charles de Kerchovelaan"
+  },
+  {
+    "TrajectID": "D_NZ",
+    "LocationName": "Groot-Brittanniëlaan"
+  },
+  {
+    "TrajectID": "D_ZN",
+    "LocationName": "Charles de Kerchovelaan"
+  },
+  {
+    "TrajectID": "E_NZ",
+    "LocationName": "Antonius Triestlaan"
+  },
+  {
+    "TrajectID": "E_ZN",
+    "LocationName": "Godshuizenlaan"
+  },
+  {
+    "TrajectID": "F_NZ",
+    "LocationName": "Einde Were"
+  },
+  {
+    "TrajectID": "F_ZN",
+    "LocationName": "Antonius Triestlaan"
+  },
+  {
+    "TrajectID": "G_NZ",
+    "LocationName": "Rooigemlaan"
+  },
+  {
+    "TrajectID": "G_ZN",
+    "LocationName": "Nieuwewandeling"
+  },
+  {
+    "TrajectID": "H_NZ",
+    "LocationName": "Rooigemlaan"
+  },
+  {
+    "TrajectID": "H_ZN",
+    "LocationName": "Drongensesteenweg"
+  },
+  {
+    "TrajectID": "I_OW",
+    "LocationName": "Nieuwevaart"
+  },
+  {
+    "TrajectID": "I_WO",
+    "LocationName": "Palinghuizen"
+  },
+  {
+    "TrajectID": "Invalsweg1",
+    "LocationName": "Palinghuizen"
+  },
+  {
+    "TrajectID": "Invalsweg10",
+    "LocationName": "Brusselsepoortstraat"
+  },
+  {
+    "TrajectID": "Invalsweg11",
+    "LocationName": "N444"
+  },
+  {
+    "TrajectID": "Invalsweg12",
+    "LocationName": "Gustaaf Callierlaan"
+  },
+  {
+    "TrajectID": "Invalsweg13",
+    "LocationName": "Krijgslaan"
+  },
+  {
+    "TrajectID": "Invalsweg14",
+    "LocationName": "Kunstlaan"
+  },
+  {
+    "TrajectID": "Invalsweg15",
+    "LocationName": "Kortrijksesteenweg"
+  },
+  {
+    "TrajectID": "Invalsweg16",
+    "LocationName": "Rozemarijnstraat"
+  },
+  {
+    "TrajectID": "Invalsweg17",
+    "LocationName": "Drongensesteenweg"
+  },
+  {
+    "TrajectID": "Invalsweg18",
+    "LocationName": "Drongensesteenweg"
+  },
+  {
+    "TrajectID": "Invalsweg19",
+    "LocationName": "Sint-Lievenspoortstraat"
+  },
+  {
+    "TrajectID": "Invalsweg2",
+    "LocationName": "Parallelweg"
+  },
+  {
+    "TrajectID": "Invalsweg20_stadinwaarts",
+    "LocationName": "Elyzeese Velden"
+  },
+  {
+    "TrajectID": "Invalsweg3",
+    "LocationName": "Tolhuislaan"
+  },
+  {
+    "TrajectID": "Invalsweg4",
+    "LocationName": "Dampoortstraat"
+  },
+  {
+    "TrajectID": "Invalsweg5",
+    "LocationName": "Koopvaardijlaan"
+  },
+  {
+    "TrajectID": "Invalsweg6",
+    "LocationName": "Antwerpsesteenweg"
+  },
+  {
+    "TrajectID": "Invalsweg7",
+    "LocationName": "Azaleastraat"
+  },
+  {
+    "TrajectID": "Invalsweg8",
+    "LocationName": "Dendermondsesteenweg"
+  },
+  {
+    "TrajectID": "Invalsweg9",
+    "LocationName": "Brusselsesteenweg"
+  },
+  {
+    "TrajectID": "J_OW",
+    "LocationName": "Nieuwevaart"
+  },
+  {
+    "TrajectID": "J_WO",
+    "LocationName": "Wondelgemstraat"
+  },
+  {
+    "TrajectID": "K_NZ",
+    "LocationName": "Muidelaan"
+  },
+  {
+    "TrajectID": "K_ZN",
+    "LocationName": "Dok-Zuid"
+  },
+  {
+    "TrajectID": "L_NZ",
+    "LocationName": "Kasteellaan"
+  },
+  {
+    "TrajectID": "L_ZN",
+    "LocationName": "Jan Delvinlaan"
+  },
+  {
+    "TrajectID": "M_NZ",
+    "LocationName": "Heernislaan"
+  },
+  {
+    "TrajectID": "M_ZN",
+    "LocationName": "Keizerviaduct"
+  },
+  {
+    "TrajectID": "N_NZ",
+    "LocationName": "Keizerviaduct"
+  },
+  {
+    "TrajectID": "N_ZN",
+    "LocationName": "Keizerviaduct"
+  },
+  {
+    "TrajectID": "O_OW",
+    "LocationName": "Contributiestraat"
+  },
+  {
+    "TrajectID": "O_WO",
+    "LocationName": "Nieuwewandeling"
+  },
+  {
+    "TrajectID": "P_OW",
+    "LocationName": "Blaisantvest"
+  },
+  {
+    "TrajectID": "P_WO",
+    "LocationName": "Begijnhoflaan"
+  },
+  {
+    "TrajectID": "R40a_OW",
+    "LocationName": "Blaisantvest"
+  },
+  {
+    "TrajectID": "R40a_WO",
+    "LocationName": "Nieuwewandeling"
+  },
+  {
+    "TrajectID": "R40wijzerzin",
+    "LocationName": "Godhuizenlaan"
+  },
+  {
+    "TrajectID": "Uitvalsweg20_staduitwaarts",
+    "LocationName": "Bargiekaai"
+  }
+]

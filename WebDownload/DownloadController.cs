@@ -23,6 +23,9 @@ namespace WebDownload
             var path = Path.Combine(
                            Directory.GetCurrentDirectory(),
                            "wwwroot", filename);
+            if (!System.IO.File.Exists(path))
+                return Content("File does not exist on this server");
+
             Console.WriteLine(path);
             var memory = new MemoryStream();
             using (var stream = new FileStream(path, FileMode.Open))
@@ -30,6 +33,7 @@ namespace WebDownload
                 await stream.CopyToAsync(memory);
             }
             memory.Position = 0;
+            System.IO.File.Delete(path);
             return File(memory, GetContentType(path), Path.GetFileName(path));
         }
 

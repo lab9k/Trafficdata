@@ -42,7 +42,8 @@ namespace WebDownload
                 CollectionName = collection
             };
             queryManager.Init();
-            return queryManager.GetAllResults($"select * from c where c.Timestamp.FullDate > '{from}' and c.Timestamp.FullDate < '{to}' and c.SegmentName ='{segment}'");
+            string query = $"select * from c where c.Timestamp.FullDate > '{from}' and c.Timestamp.FullDate < '{to}' and c.SegmentName ='{segment}'";
+            return queryManager.GetAllResults(query);
         }
     }
 }

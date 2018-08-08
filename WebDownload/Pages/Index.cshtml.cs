@@ -7,26 +7,67 @@ using System.Threading.Tasks;
 using DocumentModels.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 namespace WebDownload.Pages
 {
     public class IndexModel : PageModel
     {
+        private static List<Location> _locations;
         public void OnGet()
         {
 
+             Items = Locations.Select(c => new SelectListItem
+            {
+                Value = c.TrajectID,
+                Text = c.FullName
+
+            });
         }
+
+        [BindProperty]
+        public IEnumerable<SelectListItem> Items { get; set; } 
+
+        public List<Location> Locations { get {
+                if(_locations == null)
+                {
+                    var path = Path.Combine(
+                           Directory.GetCurrentDirectory(),
+                           "wwwroot", "segments.json");
+                    string json = System.IO.File.ReadAllText(path);
+                    _locations = JsonConvert.DeserializeObject<List<Location>>(json);
+                }
+                return _locations;
+            }
+            set { _locations = value; }
+        }
+
+        [BindProperty]
+        public Location SelectedLocation { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
             string fromDate = Request.Form["from-date"];
             string toDate = Request.Form["to-date"];
-            string segment = Request.Form["segmentName"];
+            string segment = Request.Form["SelectedLocation"];
+            string filename = $"{segment}_{fromDate}-{toDate}";
             Task<List<ParserSegment>> task = new Task<List<ParserSegment>>(() => RecordFetcher.GetResults(fromDate, toDate, segment));
             task.Start();
             List<ParserSegment> results = await task;
-            string file = IOManager.WriteSegmentsToFile(results, $"{segment}_{fromDate}-{toDate}");
-            return await Get(file);
+            if (results.Count > 0)
+                return IOManager.GetFileResult(results, filename, this);
+            else
+                return Content("No records found");
+        }
+
+        public IActionResult Get(MemoryStream memory,string filename)
+        {
+            var path = Path.Combine(
+                          Directory.GetCurrentDirectory(),
+                          "wwwroot", filename);
+            memory.Position = 0;
+            return File(memory, GetContentType(path), Path.GetFileName(path));
         }
 
         public async Task<IActionResult> Get(string id)

@@ -18,7 +18,7 @@ namespace TraveltimesDocumentCreator
 
         private static int THREADS = 12;
         
-        public static void CreateMergedDocuments(string[] segments, string inputEndpoint, string inputKey, string inputDb, string inputCollStatic,string inputCollDynamic,
+        public static async Task CreateMergedDocuments(string[] segments, string inputEndpoint, string inputKey, string inputDb, string inputCollStatic,string inputCollDynamic,
             string outputColl = null, string outputDb = null, string outputEndpoint = null, string outputKey = null, int threads = 12)
         {
             THREADS = threads;
@@ -60,7 +60,7 @@ namespace TraveltimesDocumentCreator
             };
             PersistDocuments.Init();
             Console.WriteLine("Starting transformations");
-            TransformAndPersist(dynamicInfoQuerier,staticInfoQuerier,Verification.CheckExisting, segments);
+            await TransformAndPersist(dynamicInfoQuerier,staticInfoQuerier,Verification.CheckExisting, segments);
 
         }
 
@@ -121,18 +121,18 @@ namespace TraveltimesDocumentCreator
             return dynamicData;
         }
 
-        public static void TransformAndPersist(QueryManager<TraveltimeSegment> queryManager, QueryManager<TraveltimeStatic> staticInfoQuerier, Verification verifyType, string[] segmentIds,DateTime? startDate = null)
+        public static async Task TransformAndPersist(QueryManager<TraveltimeSegment> queryManager, QueryManager<TraveltimeStatic> staticInfoQuerier, Verification verifyType, string[] segmentIds,DateTime? startDate = null)
         {
            foreach (string segment in segmentIds)
             {
                 Console.WriteLine("Processing documents for segment: " + segment);
-                TransformationTask(queryManager, staticInfoQuerier, verifyType, segment, startDate);
+                await TransformationTask(queryManager, staticInfoQuerier, verifyType, segment, startDate);
             }
 
 
         }
 
-        private static void TransformationTask(QueryManager<TraveltimeSegment> queryManager, QueryManager<TraveltimeStatic> staticInfoQuerier, Verification verifyType,string segment, DateTime? startDate = null)
+        private static async Task TransformationTask(QueryManager<TraveltimeSegment> queryManager, QueryManager<TraveltimeStatic> staticInfoQuerier, Verification verifyType,string segment, DateTime? startDate = null)
         {
             Console.WriteLine($"Fetching documents for segment {segment}, this will take a while...");
             List<TraveltimeSegment> input = queryManager.GetAllResults($"select * from c where c.TrajectID = '{segment}'");
@@ -143,7 +143,7 @@ namespace TraveltimesDocumentCreator
             //Console.WriteLine("Processing transformations...");
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            int[] res = ProcessMerges(input, verifyType, staticInfoQuerier);
+            int[] res = await ProcessMergesAsync(input, verifyType, staticInfoQuerier);
             stopwatch.Stop();
 
             Console.WriteLine($"Processing finished for segment {segment} (thread: {Thread.CurrentThread.ManagedThreadId}) in {stopwatch.Elapsed}: {res[0]} succeeded, {res[1]} failed, {res[2]} skipped");
@@ -180,7 +180,7 @@ namespace TraveltimesDocumentCreator
 
         private static async Task<int[]> ProcessMergesAsync(List<TraveltimeSegment> input, Verification verifyType, QueryManager<TraveltimeStatic> staticInfoQuerier)
         {
-            Console.WriteLine("Processing merges");
+            string segment = input?[0]?.Id == null ? "" : input?[0]?.Id ;
 
             int itemsPerThread = input.Count / THREADS;
             int currentIndex = 0;
@@ -190,23 +190,14 @@ namespace TraveltimesDocumentCreator
             {
                 int itemCount = currentIndex + itemsPerThread < input.Count ? itemsPerThread : input.Count - currentIndex;
                 List<TraveltimeSegment> slicedInput = input.GetRange(currentIndex, itemsPerThread);
-                int[] results = await ProcessMergesAsync(input, verifyType, staticInfoQuerier);
+                Task<int[]> t = new Task<int[]>(() => ProcessMerges(slicedInput, verifyType, staticInfoQuerier));
+                t.Start();
+                int[] results = await t;                
                 resultCounts.Add(results);
                 currentIndex += itemCount;
+                Console.WriteLine($"status: {segment} {currentIndex}/{input.Count}");
             }
-            //while(tasks.Count > 0)
-            //{
-            //    await Task.WhenAny(tasks);
-                //for (int i = 0; i < tasks.Count;i++)
-                //{
-                //    if (tasks[i].IsCompleted)
-                //    {
-                //        Console.WriteLine($"Task {i}: {tasks[i].Status}");
-                //        tasks.RemoveAt(i);
-                //    }
 
-               // }
-            //}
 
             int[] totalResultCounts = { 0, 0, 0 };
             foreach(int[] i in resultCounts)

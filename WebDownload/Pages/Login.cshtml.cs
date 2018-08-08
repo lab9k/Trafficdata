@@ -20,7 +20,7 @@ namespace WebDownload.Pages
         {
             if (ModelState.IsValid)
             {
-                var isValid = (loginData.Username == "username" && loginData.Password == "password");
+                var isValid = (loginData.Username == "Lab9K" && loginData.Password == "WelkomInGent!");
                 if (!isValid)
                 {
                     ModelState.AddModelError("", "username or password is invalid");
