@@ -189,7 +189,17 @@ namespace TraveltimesDocumentCreator
             while(currentIndex < input.Count)
             {
                 int itemCount = currentIndex + itemsPerThread < input.Count ? itemsPerThread : input.Count - currentIndex;
-                List<TraveltimeSegment> slicedInput = input.GetRange(currentIndex, itemsPerThread);
+                List<TraveltimeSegment> slicedInput;
+                try
+                {
+                    slicedInput = input.GetRange(currentIndex, itemsPerThread);
+
+                }
+                catch (System.ArgumentException ex)
+                {
+                    slicedInput = input.GetRange(currentIndex, input.Count - currentIndex);
+
+                }
                 Task<int[]> t = new Task<int[]>(() => ProcessMerges(slicedInput, verifyType, staticInfoQuerier));
                 t.Start();
                 int[] results = await t;                
