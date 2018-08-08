@@ -18,13 +18,15 @@ namespace TraveltimesDocumentCreator.HostedServices
                                                    new CancellationTokenSource();
         private Task _currentTask;
         private IBlockingQueue<GenericQueueTask<SegmentTaskModel>> _queue;
+        private IThreadPool _pool;
 
-
-
-        public BeMobileSegmentService(ILogger<BeMobileSegmentService> logger, IBlockingQueue<GenericQueueTask<SegmentTaskModel>> queue)
+        public BeMobileSegmentService(ILogger<BeMobileSegmentService> logger, IBlockingQueue<GenericQueueTask<SegmentTaskModel>> queue, IThreadPool pool)
         {
             _logger = logger;
             _queue = queue;
+            _pool = pool;
+            if (_pool == null) _logger.LogWarning("Threadpool service not defined, skipping restrictions");
+
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -43,8 +45,13 @@ namespace TraveltimesDocumentCreator.HostedServices
             _logger.LogInformation("Document Processing Service is working.");
             while (isRunning)
             {
-                GenericQueueTask<SegmentTaskModel> task = _queue.Queue.Take();
-                task.ExecuteTask();
+                if(_pool == null || _pool.GetLock(5000) > 0)
+                {
+                    GenericQueueTask<SegmentTaskModel> task = _queue.Queue.Take();
+                    task.ExecuteTask();
+                    _pool.ReleaseLock();
+                }
+                
             }
         }
 
