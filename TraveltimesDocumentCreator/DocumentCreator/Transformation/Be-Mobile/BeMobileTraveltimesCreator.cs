@@ -108,16 +108,20 @@ namespace TraveltimesDocumentCreator
 
         private static GenericTraveltimeSegment FillLocationInfo(TraveltimeSegmentStatic staticData, GenericTraveltimeSegment dynamicData)
         {
-            List<LocationInfoModel.AddressComponent> components =
-                staticData.googleLocationInfo[0].result.address_components;
-            LocationInfoModel.AddressComponent routeComponent = components[1];
-            int index = 0;
-            while (!routeComponent.types.Contains("route") && index < components.Count)
+            if(staticData.googleLocationInfo != null)
             {
-                routeComponent = components[index];
-            }
-            dynamicData.FromPoint = routeComponent.long_name;
-            dynamicData.ToPoint = routeComponent.long_name;
+                List<LocationInfoModel.AddressComponent> components =
+                staticData.googleLocationInfo[0].result.address_components;
+                LocationInfoModel.AddressComponent routeComponent = components[1];
+                int index = 0;
+                while (!routeComponent.types.Contains("route") && index < components.Count)
+                {
+                    routeComponent = components[index];
+                }
+                dynamicData.FromPoint = routeComponent.long_name;
+                dynamicData.ToPoint = routeComponent.long_name;
+            }            
+            
             return dynamicData;
         }
 

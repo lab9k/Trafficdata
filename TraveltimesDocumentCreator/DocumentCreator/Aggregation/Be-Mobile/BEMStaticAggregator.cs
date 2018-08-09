@@ -43,11 +43,13 @@ namespace TraveltimesDocumentCreator
             outputManager.Init();
 
             Console.WriteLine("Processing Transformations..");
-            List<TraveltimeStatic> toProces =
-                GetGeoLocation(GeTraveltimeStatic(GetAllSegmentIds(staticInfoQuerier), staticInfoQuerier),
-                    GoogleApiKey);
+            List<TraveltimeStatic> toProcess = GeTraveltimeStatic(GetAllSegmentIds(staticInfoQuerier), staticInfoQuerier);
+            Console.WriteLine("Google recently changed its places API model, loading locationsinfo currently disabled");
+            //Google location info disabled
+           // List<TraveltimeStatic> toProces = GetGeoLocation(GeTraveltimeStatic(GetAllSegmentIds(staticInfoQuerier), staticInfoQuerier),
+             //       GoogleApiKey);
 
-            foreach (var r in FillLocationInfoFromLocationId(toProces, GoogleApiKey))
+            foreach (var r in toProcess)//FillLocationInfoFromLocationId(toProcess, GoogleApiKey))
             {
                 outputManager.Create(r).Wait();
             }

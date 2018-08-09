@@ -26,14 +26,22 @@ namespace TrafficConsole
                     {
                         if (t.Type == "Transform")
                         {
-                            BeMobileTransform.Tranform(t).Wait();
+                            BeMobileTransform.Transform(t).Wait();
                         }
                         else if (t.Type == "Import")
                         {
                             BeMobileImport import = new BeMobileImport();
                             import.Import(t).Wait();
                         }
-                    }                   
+                        else if(t.Type == "Transform_Static")
+                        {
+                            BeMobileTransform.TransformStaticData(t);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"No task definition for {t.Source}{t.Type} found");
+                    }
                 }
 
             }

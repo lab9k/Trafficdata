@@ -8,7 +8,22 @@ namespace TrafficConsole.Transform
 {
     public class BeMobileTransform
     {
-        public async static Task Tranform(TaskModel model)
+        public static void TransformStaticData(TaskModel model)
+        {
+            if(model.GoogleApiKey == null)
+            {
+                //TODO: Uncomment when Locations API is implemented correctly
+                //Console.WriteLine($"No google APIKey found for task {model.Source}:{model.Type}, skipping task");
+                //return;
+            }
+
+            Console.WriteLine($"Task {model.Source}:{model.Type} started");
+
+            BemStaticAggregator.AggregateStaticData(model.GoogleApiKey, model.Input.URL, model.Input.Key, model.Input.Database, model.Input.Collection,
+                model.Output.Collection, model.Output.Database, model.Output.URL, model.Output.Key);
+        }
+
+        public async static Task Transform(TaskModel model)
         {
             List<Task> runningTasks = new List<Task>();
             foreach (string segment in model.Segments)

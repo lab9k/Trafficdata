@@ -85,7 +85,11 @@ namespace Database_Access_Object
                     await Client.UpsertDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseName, CollectionName), obj);
             }catch(Exception ex)
             {
-                Console.WriteLine($"Error inserting document, {(tryCount <= retryCount ? "retrying action" : "skipping action")}");
+                //Console.WriteLine($"Error inserting document, {(tryCount <= retryCount ? "retrying action" : "skipping action")}");
+                if(tryCount > retryCount)
+                {
+                    Console.WriteLine($"Error inserting document, skipping action.");
+                }
                 await Create(obj, ++tryCount, retryCount);
             }
         }

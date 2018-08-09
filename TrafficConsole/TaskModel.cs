@@ -22,6 +22,7 @@ namespace TrafficConsole
     }
     public class TaskModel
     {
+        public string GoogleApiKey { get; set; }
         public string Type { get; set; }
         public string Source { get; set; }
         public Blob BlobInput { get; set; }

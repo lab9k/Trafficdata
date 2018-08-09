@@ -14,6 +14,7 @@ namespace TrafficConsole.Import
     {
         public int TotalToProcess { get; set; }
         public int Processed { get; set; }
+
         public async Task Import(TaskModel model)
         {
             if(model.BlobInput == null)
