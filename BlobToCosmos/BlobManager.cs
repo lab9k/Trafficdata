@@ -40,6 +40,7 @@ namespace BlobToCosmos
 
         public async Task<List<IListBlobItem>> ListAllBlobsAsync(string containerName, string prefix = null)
         {
+            
             // Create the blob client.
             CloudBlobClient blobClient = _cloudStorageAccount.CreateCloudBlobClient();
 

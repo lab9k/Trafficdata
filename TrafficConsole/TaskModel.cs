@@ -12,10 +12,19 @@ namespace TrafficConsole
         public string Collection { get; set; }
         public string StaticCollection { get; set; }
     }
+
+    public class Blob
+    {
+        public string AccountName { get; set; }
+        public string Key { get; set; }
+        public string Container { get; set; }
+        public string[] Path { get; set; }
+    }
     public class TaskModel
     {
         public string Type { get; set; }
         public string Source { get; set; }
+        public Blob BlobInput { get; set; }
         public Cosmos Input { get; set; }
         public Cosmos Output { get; set; }
         public List<string> Segments { get; set; }

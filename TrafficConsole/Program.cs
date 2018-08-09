@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using TrafficConsole.Import;
 using TrafficConsole.Transform;
 using TraveltimesDocumentCreator;
 
@@ -21,10 +22,18 @@ namespace TrafficConsole
                 List<TaskModel> tasks = JsonConvert.DeserializeObject<List<TaskModel>>(json);
                 foreach(TaskModel t in tasks)
                 {
-                    if (t.Type == "Transform" && t.Source == "Be-Mobile")
+                    if(t.Source == "Be-Mobile")
                     {
-                        BeMobileTransform.Tranform(t).Wait();
-                    }
+                        if (t.Type == "Transform")
+                        {
+                            BeMobileTransform.Tranform(t).Wait();
+                        }
+                        else if (t.Type == "Import")
+                        {
+                            BeMobileImport import = new BeMobileImport();
+                            import.Import(t).Wait();
+                        }
+                    }                   
                 }
 
             }
@@ -32,6 +41,7 @@ namespace TrafficConsole
             {
                 Console.WriteLine($"File {path} does not exist");
             }
+            Console.ReadKey();
             //BeMobileTraveltimesCreator.CreateMergedDocuments()
         }
     }
