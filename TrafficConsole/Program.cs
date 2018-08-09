@@ -22,26 +22,35 @@ namespace TrafficConsole
                 List<TaskModel> tasks = JsonConvert.DeserializeObject<List<TaskModel>>(json);
                 foreach(TaskModel t in tasks)
                 {
-                    if(t.Source == "Be-Mobile")
+                    try
                     {
-                        if (t.Type == "Transform")
+                        if (t.Source == "Be-Mobile")
                         {
-                            BeMobileTransform.Transform(t).Wait();
+                            if (t.Type == "Transform")
+                            {
+                                BeMobileTransform.Transform(t).Wait();
+                            }
+                            else if (t.Type == "Import")
+                            {
+                                BeMobileImport import = new BeMobileImport();
+                                import.Import(t).Wait();
+                            }
+                            else if (t.Type == "Transform_Static")
+                            {
+                                BeMobileTransform.TransformStaticData(t);
+                            }
                         }
-                        else if (t.Type == "Import")
+                        else
                         {
-                            BeMobileImport import = new BeMobileImport();
-                            import.Import(t).Wait();
+                            Console.WriteLine($"No task definition for {t.Source}{t.Type} found");
                         }
-                        else if(t.Type == "Transform_Static")
-                        {
-                            BeMobileTransform.TransformStaticData(t);
-                        }
-                    }
-                    else
+                    }catch(Exception ex)
                     {
-                        Console.WriteLine($"No task definition for {t.Source}{t.Type} found");
+                        Console.WriteLine("Error while trying to start task: " + ex.Message);
+                        Console.WriteLine("Is the database key valid?");
+                        break; //Tasks must be executed in sequence, so break when an error occurs
                     }
+                    
                 }
 
             }
